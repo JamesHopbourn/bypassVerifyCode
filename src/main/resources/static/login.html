@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>bypass Verify Code</title>
+    <script src="javascript/axios.min.js"></script>
+    <style>
+        /* 样式用于将验证码图片和验证码输入框在同一行并且垂直对齐 */
+        .verification-code {
+            vertical-align: middle;
+        }
+        /* 样式用于将验证码图片的高度与输入框相匹配 */
+        img[alt="Verification Code"] {
+            height: 25px; /* 调整为适当的高度 */
+            cursor: pointer; /* 设置光标样式为手型，表明图片可以点击 */
+        }
+    </style>
+    <script>
+        // JavaScript函数用于刷新验证码图片
+        function refreshVerifyCode() {
+            // 获取验证码图片元素
+            var verifyCodeImg = document.querySelector('img[alt="Verification Code"]');
+            // 生成一个随机数，用于防止浏览器缓存验证码图片
+            var randomValue = Math.random();
+            // 设置验证码图片的 src 属性，添加随机数参数
+            verifyCodeImg.src = 'getVerifyCode?random=' + randomValue;
+        }
+        // JavaScript函数用于发送POST请求
+        function login() {
+            // 获取用户名、密码和验证码输入框的值
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var verifyCode = document.getElementById("verifyCode").value;
+
+            // 构建请求数据对象
+            var data = {
+                username: username,
+                password: password,
+                // Dr.com 对于文本框里没有输入的值，POST 的时候发送的值是 null
+                verifyCode: verifyCode === "" ? null : verifyCode
+            };
+
+            // 使用Axios发送POST请求
+            axios.post('/login', data)
+                .then(function (response) {
+                    console.log(response);
+                    // 请求成功的处理逻辑
+                    if (response.data.code === 200) {
+                        alert("登陆成功");
+                        // 可以进行页面跳转或其他操作
+                    } else {
+                        alert(response.data.message);
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+<h2>校园网登陆认证系统</h2>
+<form>
+    <label for="username">学号：</label>
+    <input type="text" id="username" name="username" value="admin"><br><br>
+
+    <label for="password">密码：</label>
+    <input type="password" id="password" name="password" value="admin"><br><br>
+
+    <label for="verifyCode">验证码：</label>
+    <input type="text" id="verifyCode" name="verifyCode">
+    <!-- 显示验证码图片，使用:8080/getVerifyCode作为图片的接口地址 -->
+    <img src="getVerifyCode" class="verification-code" onclick="refreshVerifyCode()"><br><br>
+
+    <input type="button" value="Login" onclick="login()">
+</form>
+</body>
+</html>
