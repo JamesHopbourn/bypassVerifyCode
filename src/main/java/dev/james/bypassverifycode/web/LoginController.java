@@ -40,8 +40,8 @@ public class LoginController {
     public Result verify(HttpSession session, @RequestBody UserDetail userDetail) {
         String code = (String) session.getAttribute("code");
         boolean equals = Objects.equals(code, userDetail.getVerifyCode());
-        log.info("code = {}", code);
-        log.info("userDetail.getVerifyCode() = {}", userDetail.getVerifyCode());
+        log.info("session 中存储的验证码是： {}", code);
+        log.info("用户输入的验证码是：{}", userDetail.getVerifyCode());
         if (!equals) {
             return Result.failed("验证码错误");
         } else if (userDetail.getUsername().equals("admin") &&
