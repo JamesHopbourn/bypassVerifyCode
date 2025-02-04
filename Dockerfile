@@ -1,4 +1,4 @@
-FROM openjdk8-jre-alpine-with-fontconfig
+FROM neduekwunife/openjdk8-jre-alpine-with-fontconfig
 LABEL maintainer="jameshopbourn@gmail.com"
 
     
