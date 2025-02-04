@@ -3,8 +3,8 @@ LABEL maintainer="jameshopbourn@gmail.com"
 
 
 # 更新Alpine源为阿里云镜像，并安装必要的工具
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    apk update && \
+# sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+RUN apk update && \
     apk add --no-cache \
         ttf-dejavu \
         fontconfig \
