@@ -1,13 +1,5 @@
-FROM openjdk:8-alpine
+FROM openjdk8-jre-alpine-with-fontconfig
 LABEL maintainer="jameshopbourn@gmail.com"
-
-COPY *.apk ./
-
-# 安装这些包
-RUN apk add --allow-untrusted *.apk
-
-# 清理
-RUN rm -rf /tmp/packages
 
     
 ADD target/bypassVerifyCode.jar bypassVerifyCode.jar
