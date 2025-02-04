@@ -4,6 +4,8 @@ LABEL maintainer="jameshopbourn@gmail.com"
 
 # 更新Alpine源为阿里云镜像，并安装必要的工具
 # sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
+RUN echo -e "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.4/main\n\
+https://mirror.tuna.tsinghua.edu.cn/alpine/v3.4/community" > /etc/apk/repositories
 RUN apk update && \
     apk add --no-cache \
         ttf-dejavu \
